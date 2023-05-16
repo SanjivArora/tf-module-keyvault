@@ -112,6 +112,12 @@ variable private_endpoint_subnet_id {
   description = "Private enpoint subnet ID"
 }
 
+variable private_endpoint_name{
+  type        = string
+  default     = ""
+  description = "Name of the Private enpoint"
+}
+
 variable kv_private_dns_zone_id {
   type        = string
   default     = "/subscriptions/ca095a5d-36c0-4d4f-82ff-83580d85ebba/resourceGroups/sha-infra-dns-rg-ae-1/providers/Microsoft.Network/privateDnsZones/privatelink.vaultcore.azure.net"

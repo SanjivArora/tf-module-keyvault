@@ -79,25 +79,25 @@ resource "azurerm_role_assignment" "ado_users_identity_role_assignment_kva" {
 #----------------------------------------------------------
 
 resource "azurerm_private_endpoint" "privateendpoint" {
-  name                = "${var.environment}-${var.solution}-pep-${var.location_short_ae}-1"
+  name                = var.private_endpoint_name
   location            = local.location
   resource_group_name = local.resource_group_name
   subnet_id           = var.private_endpoint_subnet_id
 
   private_dns_zone_group {
-    name = "${var.environment}-${var.solution}-pepdns-${var.location_short_ae}-1"
+    name = "${var.environment}-${var.solution}-kv-pepdns-${var.location_short_ae}-1"
     private_dns_zone_ids = [var.kv_private_dns_zone_id]
   }
 
   private_service_connection {
-    name = "${var.environment}-${var.solution}-pep-${var.location_short_ae}-1"
+    name = "${var.environment}-${var.solution}-kv-pep-${var.location_short_ae}-1"
     private_connection_resource_id = azurerm_key_vault.keyvault.id
     subresource_names = ["vault"]
     is_manual_connection = false
   }
 tags     = merge(
 var.common_tags, { 
-Name = format("%s", "${var.environment}-${var.solution}-pep-${var.location_short_ae}-1")
+Name = format("%s", var.private_endpoint_name)
 } 
 )
 }
